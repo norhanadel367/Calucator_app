@@ -48,7 +48,7 @@
             android:textSize="36sp"
             android:layout_marginRight="24dp"
             android:layout_marginLeft="24dp"
-            android:maxLines="1"
+            android:maxLines="10"
             android:scrollHorizontally="true"
             app:layout_constraintBottom_toTopOf="@+id/dragHandle"
             app:layout_constraintEnd_toEndOf="parent"
