@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onClickOperator(button: AppCompatButton) {
         val op = when (button.text.toString()) {
-            "*" -> Operator.MULTIPLY
+            "x" -> Operator.MULTIPLY
             "-" -> Operator.MINUS
             "/" -> Operator.DIVIDER
             "%" -> Operator.MOD

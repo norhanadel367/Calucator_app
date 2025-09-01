@@ -91,14 +91,18 @@ class CalculatorViewModel : ViewModel() {
             }
         }
     }
-
     fun onEqualButtonClicked() {
         val currentState = _state.value
         if (currentState.currentNumber.isEmpty() && currentState.numbers.isEmpty()) return
 
-        val numbers =
-            currentState.numbers + (if (currentState.currentNumber.isNotEmpty()) listOf(currentState.currentNumber) else listOf())
-        val operators = currentState.operators
+        // اجمع الأرقام
+        var numbers = currentState.numbers + (if (currentState.currentNumber.isNotEmpty()) listOf(currentState.currentNumber) else listOf())
+        var operators = currentState.operators
+
+        // لو الأوبريتور أكتر من الأرقام → احذف آخر Operator
+        if (operators.size >= numbers.size) {
+            operators = operators.dropLast(1)
+        }
 
         if (numbers.isEmpty()) {
             _state.update { it.copy(lastOperation = "0") }
@@ -116,6 +120,7 @@ class CalculatorViewModel : ViewModel() {
             )
         }
     }
+
 
     private fun calculateResult(numbers: List<Float>, operators: List<Operator>): String {
         if (numbers.isEmpty()) return "0"
@@ -162,7 +167,7 @@ class CalculatorViewModel : ViewModel() {
     private fun Operator.toEquation(): String {
         return when (this) {
             Operator.DIVIDER -> " / "
-            Operator.MULTIPLY -> " * "
+            Operator.MULTIPLY -> " x "
             Operator.ADDITION -> " + "
             Operator.MOD -> " % "
             Operator.MINUS -> " - "

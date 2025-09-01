@@ -17,7 +17,7 @@
         <item name="android:fontFamily">@font/doppio_one</item>
         <item name="android:backgroundTint">@color/soft_gray</item>
         <item name="android:textSize">22sp</item>
-        <item name="android:letterSpacing">0.25</item>
+        <item name="android:letterSpacing">0.01</item>
         <item name="android:fontWeight">400</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">8dp</item>
@@ -30,7 +30,7 @@
         <item name="android:backgroundTint">@color/peach_orange</item>
         <item name="android:textSize">22sp</item>
         <item name="android:fontWeight">400</item>
-        <item name="android:letterSpacing">0.25</item>
+        <item name="android:letterSpacing">0.01</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">8dp</item>
     </style>
