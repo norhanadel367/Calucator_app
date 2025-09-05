@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Calucator_app" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Calucator_app" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
@@ -8,31 +8,23 @@
     <style name="Theme.Calucator_app" parent="Base.Theme.Calucator_app" />
 
     <style name="CalculatorButton">
-        <item name="android:textSize">@dimen/textbutton</item>
+        <item name="android:fontFamily">@font/doppio_one</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">8dp</item>
     </style>
 
     <style name="CalculatorButton.Number">
         <item name="android:background">@drawable/circle_button_white</item>
         <item name="android:textColor">@color/deep_brown</item>
-        <item name="android:fontFamily">@font/doppio_one</item>
-        <item name="android:backgroundTint">@color/soft_gray</item>
-        <item name="android:textSize">22sp</item>
-        <item name="android:letterSpacing">0.01</item>
-        <item name="android:fontWeight">400</item>
-        <item name="android:gravity">center</item>
-        <item name="android:padding">8dp</item>
     </style>
 
     <style name="CalculatorButton.Operation">
         <item name="android:background">@drawable/circle_button</item>
         <item name="android:textColor">@color/soft_gray</item>
-        <item name="android:fontFamily">@font/doppio_one</item>
-        <item name="android:backgroundTint">@color/peach_orange</item>
-        <item name="android:textSize">22sp</item>
-        <item name="android:fontWeight">400</item>
-        <item name="android:letterSpacing">0.01</item>
-        <item name="android:gravity">center</item>
-        <item name="android:padding">8dp</item>
+
     </style>
 
     <dimen name="textbutton">20sp</dimen>

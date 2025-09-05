@@ -1,11 +1,17 @@
 package com.example.calucator_app
 
+import android.graphics.Color
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.calucator_app.databinding.ActivityMainBinding
+
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -15,8 +21,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.statusBarColor = Color.TRANSPARENT
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        val controller = WindowInsetsControllerCompat(window, binding.root)
+        controller.isAppearanceLightStatusBars = true
 
         setUpData()
         setUpClickListeners()
@@ -55,12 +75,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun onClickNum(button: AppCompatButton) {
+    private fun onClickNum(button: TextView) {
         val number = button.text.toString()
         viewModel.onNumberClicked(number)
     }
 
-    private fun onClickOperator(button: AppCompatButton) {
+    private fun onClickOperator(button: TextView) {
         val op = when (button.text.toString()) {
             "x" -> Operator.MULTIPLY
             "-" -> Operator.MINUS

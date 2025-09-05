@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- الحالة عند النقر -->
     <item android:state_pressed="true">
         <shape android:shape="oval">
-            <solid android:color="@color/soft_gray" /> <!-- استبدلي dark_color بلون داكن مناسب -->
+            <solid android:color="@color/click_orange" />
         </shape>
     </item>
-
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/soft_gray" />
+        </shape>
+    </item>
 </selector>

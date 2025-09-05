@@ -62,11 +62,9 @@ class CalculatorViewModel : ViewModel() {
     fun deleteLast() {
         _state.update { currentState ->
             when {
-                // Case 1: If currentNumber is not empty, remove its last character
                 currentState.currentNumber.isNotEmpty() -> {
                     currentState.copy(currentNumber = currentState.currentNumber.dropLast(1))
                 }
-                // Case 2: If there are operators and numbers, remove the last operator but restore the last number as currentNumber
                 currentState.operators.isNotEmpty() && currentState.numbers.isNotEmpty() -> {
                     val lastNumber = currentState.numbers.last()
                     val lastOperatorLength = currentState.operators.last().toEquation().length
@@ -79,14 +77,12 @@ class CalculatorViewModel : ViewModel() {
                         currentNumber = lastNumber  // Restore the last number for editing
                     )
                 }
-                // Case 3: If only numbers exist (e.g., after an equal operation), clear the last number
                 currentState.numbers.isNotEmpty() -> {
                     currentState.copy(
                         currentEquation = currentState.currentEquation.dropLast(currentState.numbers.last().length),
                         numbers = currentState.numbers.dropLast(1)
                     )
                 }
-                // Case 4: If everything is empty, return the current state
                 else -> currentState
             }
         }
@@ -95,11 +91,9 @@ class CalculatorViewModel : ViewModel() {
         val currentState = _state.value
         if (currentState.currentNumber.isEmpty() && currentState.numbers.isEmpty()) return
 
-        // اجمع الأرقام
         var numbers = currentState.numbers + (if (currentState.currentNumber.isNotEmpty()) listOf(currentState.currentNumber) else listOf())
         var operators = currentState.operators
 
-        // لو الأوبريتور أكتر من الأرقام → احذف آخر Operator
         if (operators.size >= numbers.size) {
             operators = operators.dropLast(1)
         }
@@ -135,16 +129,29 @@ class CalculatorViewModel : ViewModel() {
         var i = 0
         while (i < opList.size) {
             when (opList[i]) {
-                Operator.MULTIPLY, Operator.DIVIDER, Operator.MOD -> {
+                Operator.MULTIPLY, Operator.DIVIDER -> {
                     val result = when (opList[i]) {
                         Operator.MULTIPLY -> numList[i] * numList[i + 1]
                         Operator.DIVIDER -> if (numList[i + 1] != 0f) numList[i] / numList[i + 1] else return "Undefined"
-                        Operator.MOD -> numList[i] % numList[i + 1]
-                        else -> 0f // Unreachable
+                        else -> 0f
                     }
                     numList[i] = result
                     numList.removeAt(i + 1)
                     opList.removeAt(i)
+                }
+
+                Operator.MOD -> {
+                    val percent = (numList[i - 1] * numList[i + 1]) / 100
+                    numList[i - 1] = when (opList[i - 1]) {
+                        Operator.ADDITION -> numList[i - 1] + percent
+                        Operator.MINUS -> numList[i - 1] - percent
+                        Operator.MULTIPLY -> numList[i - 1] * (numList[i + 1] / 100)
+                        Operator.DIVIDER -> if (numList[i + 1] != 0f) numList[i - 1] / (numList[i + 1] / 100) else return "Undefined"
+                        else -> percent
+                    }
+                    numList.removeAt(i)
+                    opList.removeAt(i)
+                    i--
                 }
 
                 else -> i++
@@ -156,7 +163,7 @@ class CalculatorViewModel : ViewModel() {
             when (opList[j]) {
                 Operator.ADDITION -> res += numList[j + 1]
                 Operator.MINUS -> res -= numList[j + 1]
-                else -> {} // Already handled
+                else -> {}
             }
         }
 
